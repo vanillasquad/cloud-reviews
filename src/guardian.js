@@ -1,7 +1,7 @@
 var commonWords = ['a','i','it','as','an','m','on','to','the','of','if','by','in','and','with','at',
 'has','had','his','her','its','is','this','that','also','just','who','where','while','when','why',
 'well','have','been','not','out','from','but','for','you','will','was','their','than','which','were',
-'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because', 'there', 'see', 'new', 'last', 'does', 'too'];
+'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because', 'there', 'see', 'new', 'last', 'does', 'too', 'some', 'get', 's'];
 var fontSizeMax = 58;
 
 function guardianResponseHandler(xhr) {
