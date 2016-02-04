@@ -61,6 +61,8 @@ function domBuilder(responseObject) {
 
 	var responseContainer = document.getElementById('response-container')
 	responseContainer.style.background = 'url(' + responseObject.Poster + ')';
+	responseContainer.style.backgroundSize = 'cover';
+	responseContainer.style.backgroundPosition = '50%';
 	responseContainer.appendChild(summaryContainer);
 	// responseContainer.appendChild(poster);
 }
