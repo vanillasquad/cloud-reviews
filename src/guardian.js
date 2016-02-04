@@ -1,7 +1,7 @@
 var commonWords = ['a','i','it','as','an','m','on','to','the','of','if','by','in','and','with','at',
 'has','had','his','her','its','is','this','that','also','just','who','where','while','when','why',
 'well','have','been','not','out','from','but','for','you','will','was','their','than','which','were',
-'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because'];
+'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because', 'there', 'see', 'new', 'last', 'does', 'too'];
 var fontSizeMax = 58;
 
 function guardianResponseHandler(xhr) {
@@ -14,7 +14,7 @@ function guardianResponseHandler(xhr) {
                 text += article.fields.body;
             });
 
-            processResponse(response);
+            // processResponse(response);
             getWordCloud(text);
         }
     };
@@ -101,6 +101,8 @@ function arrangeCloud(wordSize) {
         var wordElement = document.createElement('p');
         wordElement.innerHTML = word;
         wordElement.style.fontSize = wordSize[word].toString() + 'px';
+		wordElement.style.left = (Math.random() * 500) + 1 + 'px';
+		wordElement.style.top = (Math.random() * 700) + 1 + 'px';
         wordElement.classList.add('word-cloud');
         if (wordSize[word] <= fontSizeMax/3) {
             wordElement.classList.add('light');

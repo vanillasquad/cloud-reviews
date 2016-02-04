@@ -7,13 +7,21 @@
     </head>
     <body>
         <div class="splash">
+			<h1>CLOUD REVEIWS</h1>
+			<div id="logo-container">
+				<img id="logo" src="word-cloud-logo.png" alt="" />
+			</div>
+			<p>A word cloud generator for film reviews</p>
             <form id='film-search'>
                 <input type="text" id="film-input" placeholder="Type a movie name" required autofocus></input>
-                <input type="text" id="api-key" placeholder="API Key" required>
+                <input type="text" id="api-key" placeholder="API Key" required></input>
+				<br>
                 <input type="submit" id="submit-btn"></input>
             </form>
         </div>
-        <div id="response-container"></div>
+        <div id="response-container">
+		</div>
+		<img id="cloud-1" src="cloud.svg" alt="" />
         <div id="guardian-articles"></div>
         <div id="cloud"></div>
         <script src="src/omdb.js" charset="utf-8"></script>

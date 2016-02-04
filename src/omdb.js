@@ -35,20 +35,31 @@ function noFilmCheck(responseObject) {
 }
 
 function domBuilder(responseObject) {
+	console.log(responseObject);
+	var summaryContainer = document.createElement('div');
+	summaryContainer.className = 'summary-container'
+
     var title = document.createElement('P');
     title.innerHTML = responseObject.Title;
     title.className = 'title';
-    document.getElementById('response-container').appendChild(title);
-    var poster = document.createElement('img');
-    poster.src = responseObject.Poster;
-    poster.className = 'poster';
-    document.getElementById('response-container').appendChild(poster);
+    summaryContainer.appendChild(title);
+
     var rating = document.createElement('P');
     rating.className = 'rating';
     rating.innerHTML = responseObject.imdbRating;
-    document.getElementById('response-container').appendChild(rating);
+    summaryContainer.appendChild(rating);
+
     var plot = document.createElement('P');
     plot.className = 'plot';
     plot.innerHTML = responseObject.Plot;
-    document.getElementById('response-container').appendChild(plot);
+    summaryContainer.appendChild(plot);
+
+	// var poster = document.createElement('img');
+	// poster.src = responseObject.Poster;
+	// poster.className = 'poster';
+
+	var responseContainer = document.getElementById('response-container')
+	responseContainer.style.background = 'url(' + responseObject.Poster + ')';
+	responseContainer.appendChild(summaryContainer);
+	// responseContainer.appendChild(poster);
 }
