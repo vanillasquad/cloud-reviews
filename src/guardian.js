@@ -1,40 +1,38 @@
-var guardian = new XMLHttpRequest();
-var response;
 var commonWords = ['a','i','it','as','an','m','on','to','the','of','if','by','in','and','with','at',
 'has','had','his','her','its','is','this','that','also','just','who','where','while','when','why',
 'well','have','been','not','out','from','but','for','you','will','was','their','than','which','were',
 'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because'];
-
 var fontSizeMax = 58;
 
-guardian.onreadystatechange = function() {
-    if (guardian.readyState === 4 && guardian.status === 200) {
-        response = JSON.parse(guardian.responseText).response;
-        processResponse(response);
-        getWordCloud(response);
-    }
-};
+function guardianResponseHandler(xhr) {
+    return function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            response = JSON.parse(xhr.responseText).response;
 
-var url = 'http://content.guardianapis.com/search?section=film&show-fields=body&q=the%20godfather%20film&api-key='+apiKey;
-guardian.open('GET', url);
-guardian.send();
+            var text = '';
+            response.results.forEach(function(article) {
+                text += article.fields.body;
+            });
 
-if (document.cookie.match(/api_key_guardian=./)) {
-    document.getElementById('form-guardian-key').style.display = "none";
-} else {
-    document.getElementById('form-guardian-key').style.display = "block";
-
-    document.getElementById('form-guardian-key').addEventListener('submit', function(e) {
-        e.preventDefault();
-        document.cookie = 'api_key_guardian=' + e.target.firstElementChild.value;
-        document.getElementById('form-guardian-key').style.display = "none";
-    });
+            processResponse(response);
+            getWordCloud(text);
+        }
+    };
 }
 
+function sendGuardianRequest(filmInput, apiKey) {
+    var guardianRequest = new XMLHttpRequest();
 
+    guardianRequest.onreadystatechange = guardianResponseHandler(guardianRequest);
+
+    var searchTerm = encodeURIComponent(filmInput);
+    var url = 'http://content.guardianapis.com/search?section=film&show-fields=body&q='+searchTerm+'&api-key='+apiKey;
+    guardianRequest.open('GET', url, true);
+    guardianRequest.send();
+}
 
 function processResponse(response) {
-    var targetElement = document.getElementById('form-guardian-key');
+    var targetElement = document.getElementById('guardian-articles');
 
     var list = document.createElement('ul');
     targetElement.appendChild(list);
@@ -51,13 +49,10 @@ function processResponse(response) {
     });
 }
 
-function getWordCloud(response) {
+function getWordCloud(corpus) {
     // main fuction to get the word cloud
-    var text = '';
-    response.results.forEach(function(article) {
-        text += article.fields.body;
-    });
-    var wordArray = preProcessArticleBody(text);
+
+    var wordArray = preProcessArticleBody(corpus);
     var wordFreq = calculateWordFrequency(wordArray);
     var wordSize = calculateWordSize(wordFreq);
 
@@ -81,6 +76,9 @@ function calculateWordFrequency(wordArray) {
     wordArray.forEach(function(word) {
         wordFreq[word] = (word in wordFreq) ? wordFreq[word] + 1 : 1;
     });
+    for (var word in wordFreq) {
+        if (wordFreq[word] < 2) delete wordFreq[word];
+    }
     return wordFreq;
 }
 
@@ -100,9 +98,10 @@ function arrangeCloud(wordSize) {
     //arrange stripped text into cloud
     // work with DOM
     for (var word in wordSize) {
-        var span = document.createElement('span');
+        var span = document.createElement('p');
         span.innerHTML = word;
         span.style.fontSize = wordSize[word].toString() + 'px';
+        span.className = 'word-cloud';
         document.getElementById('cloud').appendChild(span);
     }
 }

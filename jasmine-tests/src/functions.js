@@ -13,11 +13,9 @@ omdbResponse.onreadystatechange = function() {
 var filmNotFound = document.getElementById('no-film');
 var wrongInput = document.getElementById('wrong-film');
 var omdbResponseHandler = function(responseObject) {
-    //if no such film or game exists
     if (responseObject.Response === 'False') {
         filmNotFound.className = 'show';
     } else if (responseObject.Type !== 'movie') {
-        //if something exists but its not a movie
         wrongInput.className = 'show';
     } else {
         domBuilder(responseObject);
