@@ -2,7 +2,6 @@ var omdbResponse = new XMLHttpRequest();
 var response;
 var checkInput = '';
 
-
 omdbResponse.onreadystatechange = function() {
     if( omdbResponse.readyState === 4 && omdbResponse.status === 200 ){
         response = JSON.parse(omdbResponse.responseText);
@@ -21,25 +20,36 @@ var omdbResponseHandler = function(responseObject) {
     } else {
         domBuilder(responseObject);
     }
-    var pElement = document.createElement('p');
-    pElement.innerHTML = checkInput;
-    document.getElementById('response-container').appendChild(pElement);
+    var inputError = document.createElement('H3');
+    inputError.innerHTML = checkInput;
+    document.getElementById('response-container').appendChild(inputError);
 };
 
 domBuilder = function(responseObject) {
+    var title = document.createElement('H1');
+    title.innerHTML = responseObject.Title;
+    title.className = 'title';
+    document.getElementById('response-container').appendChild(title);
     var poster = document.createElement('img');
     poster.src = responseObject.Poster;
+    poster.className = 'poster';
     document.getElementById('response-container').appendChild(poster);
-    var rating = document.createElement('P');
+    var rating = document.createElement('H3');
     rating.innerHTML = responseObject.imdbRating;
+    rating.className = 'info';
     document.getElementById('response-container').appendChild(rating);
-    var plot = document.createElement('P');
+    var plot = document.createElement('H4');
     plot.innerHTML = responseObject.Plot;
+    plot.className = 'info';
     document.getElementById('response-container').appendChild(plot);
 };
 
 document.getElementById('submit-btn').addEventListener('click', function(e) {
     e.preventDefault();
+    var details = document.getElementById('response-container');
+    while (details.firstChild) {
+        details.removeChild(details.firstChild);
+    }
     var filmInput = document.getElementById('film-input').value.replace(/ /g, '+');
     var uri = 'http://www.omdbapi.com/?t=' + filmInput + '&y=&plot=short&r=json';
     omdbResponse.open('GET', uri, true);
