@@ -6,10 +6,10 @@
         <link type="text/css" rel="stylesheet" href="style.css"></link>
     </head>
     <body>
-        <form>
+        <form id='film-search'>
             <input type="text" id="film-input" placeholder="Type a movie name" required autofocus></input>
-            <input type="text" id="api-key" placeholder="API Key">
-            <button type="submit" id="submit-btn">Search</button>
+            <input type="text" id="api-key" placeholder="API Key" required>
+            <input type="submit" id="submit-btn"></input>
         </form>
         <div id="response-container">
 
@@ -21,7 +21,8 @@
         <div id="cloud">
 
         </div>
-        <script src="jasmine-tests/src/functions.js"></script>
+        <script src="src/omdb.js" charset="utf-8"></script>
         <script src="src/guardian.js" charset="utf-8"></script>
+        <script src="src/main.js" charset="utf-8"></script>
     </body>
 </html>

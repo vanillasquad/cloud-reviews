@@ -1,17 +1,27 @@
-var omdbResponse = new XMLHttpRequest();
 var response;
 var checkInput = '';
 
+function sendOmdbRequest(filmInput) {
+    var omdbResponse = new XMLHttpRequest();
 
-omdbResponse.onreadystatechange = function() {
-    if( omdbResponse.readyState === 4 && omdbResponse.status === 200 ){
-        response = JSON.parse(omdbResponse.responseText);
-        omdbResponseHandler(response);
-        return response;
-    }
-};
+    omdbResponse.onreadystatechange = omdbResponseHandler(omdbResponse);
+    var uri = 'http://www.omdbapi.com/?t=' + filmInput.replace(/ /g, '+') + '&y=&plot=short&r=json';
+    omdbResponse.open('GET', uri, true);
+    omdbResponse.send();
+}
 
-var omdbResponseHandler = function(responseObject) {
+
+function omdbResponseHandler(xhr) {
+    return function() {
+        if( xhr.readyState === 4 && xhr.status === 200 ){
+            response = JSON.parse(xhr.responseText);
+            omdbResponseHandler(response);
+            noFilmCheck(response);
+        }
+    };
+}
+
+function noFilmCheck(responseObject) {
     //if no such film or game exists
     if (responseObject.Response === 'False') {
         checkInput = 'No film here';
@@ -24,9 +34,9 @@ var omdbResponseHandler = function(responseObject) {
     var pElement = document.createElement('p');
     pElement.innerHTML = checkInput;
     document.getElementById('response-container').appendChild(pElement);
-};
+}
 
-domBuilder = function(responseObject) {
+function domBuilder(responseObject) {
     var poster = document.createElement('img');
     poster.src = responseObject.Poster;
     document.getElementById('response-container').appendChild(poster);
@@ -36,4 +46,4 @@ domBuilder = function(responseObject) {
     var plot = document.createElement('P');
     plot.innerHTML = responseObject.Plot;
     document.getElementById('response-container').appendChild(plot);
-};
+}
