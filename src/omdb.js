@@ -1,5 +1,3 @@
-var response;
-
 function sendOmdbRequest(filmInput) {
     var omdbResponse = new XMLHttpRequest();
 
@@ -9,11 +7,10 @@ function sendOmdbRequest(filmInput) {
     omdbResponse.send();
 }
 
-
 function omdbResponseHandler(xhr) {
     return function() {
         if( xhr.readyState === 4 && xhr.status === 200 ){
-            response = JSON.parse(xhr.responseText);
+            var response = JSON.parse(xhr.responseText);
             omdbResponseHandler(response);
             noFilmCheck(response);
         }
