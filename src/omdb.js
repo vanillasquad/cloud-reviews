@@ -44,11 +44,11 @@ function domBuilder(responseObject) {
     poster.className = 'poster';
     document.getElementById('response-container').appendChild(poster);
     var rating = document.createElement('P');
-    rating.className = 'info';
+    rating.className = 'rating';
     rating.innerHTML = responseObject.imdbRating;
     document.getElementById('response-container').appendChild(rating);
     var plot = document.createElement('P');
-    plot.className = 'info';
+    plot.className = 'plot';
     plot.innerHTML = responseObject.Plot;
     document.getElementById('response-container').appendChild(plot);
 }
