@@ -1,1 +1,8 @@
+.hide {
+    opacity: 0;
+    position: absolute;
+}
 
+.show {
+    opacity: 1;
+}

@@ -10,19 +10,18 @@ omdbResponse.onreadystatechange = function() {
     }
 };
 
+var filmNotFound = document.getElementById('no-film');
+var wrongInput = document.getElementById('wrong-film');
 var omdbResponseHandler = function(responseObject) {
     //if no such film or game exists
     if (responseObject.Response === 'False') {
-        checkInput = 'No film here';
+        filmNotFound.className = 'show';
     } else if (responseObject.Type !== 'movie') {
         //if something exists but its not a movie
-        checkInput = 'Please input a more specific title';
+        wrongInput.className = 'show';
     } else {
         domBuilder(responseObject);
     }
-    var inputError = document.createElement('H3');
-    inputError.innerHTML = checkInput;
-    document.getElementById('response-container').appendChild(inputError);
 };
 
 domBuilder = function(responseObject) {
@@ -50,6 +49,8 @@ document.getElementById('submit-btn').addEventListener('click', function(e) {
     while (details.firstChild) {
         details.removeChild(details.firstChild);
     }
+    filmNotFound.className = 'hide';
+    wrongInput.className = 'hide';
     var filmInput = document.getElementById('film-input').value.replace(/ /g, '+');
     var uri = 'http://www.omdbapi.com/?t=' + filmInput + '&y=&plot=short&r=json';
     omdbResponse.open('GET', uri, true);
