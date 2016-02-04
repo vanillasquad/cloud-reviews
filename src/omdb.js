@@ -21,7 +21,7 @@ function noFilmCheck(responseObject) {
     //if no such film or game exists
     var checkInput;
     if (responseObject.Response === 'False') {
-        checkInput = 'No film here';
+        checkInput = 'Try a different film';
     } else if (responseObject.Type !== 'movie') {
         //if something exists but its not a movie
         checkInput = 'Please input a more specific title';
@@ -30,6 +30,7 @@ function noFilmCheck(responseObject) {
         checkInput = '';
     }
     var pElement = document.createElement('p');
+	pElement.className = 'error';
     pElement.innerHTML = checkInput;
     document.getElementById('response-container').appendChild(pElement);
 }
