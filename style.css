@@ -1,6 +1,12 @@
+#cloud {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
 .word-cloud {
     display: inline-block;
     margin: 0 5px;
+    line-height: 0.4;
 }
 
 @keyframes color-cycle-1 {
