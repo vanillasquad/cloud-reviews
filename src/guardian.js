@@ -77,7 +77,7 @@ function calculateWordFrequency(wordArray) {
         wordFreq[word] = (word in wordFreq) ? wordFreq[word] + 1 : 1;
     });
     for (var word in wordFreq) {
-        if (wordFreq[word] < 2) delete wordFreq[word];
+        if (wordFreq[word] < 5) delete wordFreq[word];
     }
     return wordFreq;
 }
@@ -89,7 +89,7 @@ function calculateWordSize(wordFreq) {
         wordSize = {};
 
     for (var word in wordFreq) {
-        wordSize[word] = Math.ceil(fontSizeMax * (wordFreq[word] - frequencyMin) / (frequencyMax - frequencyMin));
+        wordSize[word] = Math.ceil(fontSizeMax * Math.log(wordFreq[word] - frequencyMin) / Math.log(frequencyMax - frequencyMin)) + 2;
     }
     return wordSize;
 }
@@ -98,10 +98,17 @@ function arrangeCloud(wordSize) {
     //arrange stripped text into cloud
     // work with DOM
     for (var word in wordSize) {
-        var span = document.createElement('p');
-        span.innerHTML = word;
-        span.style.fontSize = wordSize[word].toString() + 'px';
-        span.className = 'word-cloud';
-        document.getElementById('cloud').appendChild(span);
+        var wordElement = document.createElement('p');
+        wordElement.innerHTML = word;
+        wordElement.style.fontSize = wordSize[word].toString() + 'px';
+        wordElement.classList.add('word-cloud');
+        if (wordSize[word] <= fontSizeMax/3) {
+            wordElement.classList.add('light');
+        } else if (wordSize[word] <= 2*fontSizeMax/3) {
+            wordElement.classList.add('medium');
+        } else {
+            wordElement.classList.add('dark');
+        }
+        document.getElementById('cloud').appendChild(wordElement);
     }
 }

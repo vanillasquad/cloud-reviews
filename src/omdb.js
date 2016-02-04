@@ -35,13 +35,20 @@ function noFilmCheck(responseObject) {
 }
 
 function domBuilder(responseObject) {
+    var title = document.createElement('P');
+    title.innerHTML = responseObject.Title;
+    title.className = 'title';
+    document.getElementById('response-container').appendChild(title);
     var poster = document.createElement('img');
     poster.src = responseObject.Poster;
+    poster.className = 'poster';
     document.getElementById('response-container').appendChild(poster);
     var rating = document.createElement('P');
+    rating.className = 'info';
     rating.innerHTML = responseObject.imdbRating;
     document.getElementById('response-container').appendChild(rating);
     var plot = document.createElement('P');
+    plot.className = 'info';
     plot.innerHTML = responseObject.Plot;
     document.getElementById('response-container').appendChild(plot);
 }
