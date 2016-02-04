@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Guardian Reviews</title>
+        <title>Cloud Reviews</title>
         <link type="text/css" rel="stylesheet" href="style.css"></link>
     </head>
     <body>
@@ -11,16 +11,12 @@
             <input type="text" id="api-key" placeholder="API Key" required>
             <input type="submit" id="submit-btn"></input>
         </form>
-        <div id="response-container">
-
-
-        </div>
-        <div id="guardian-articles">
-
-        </div>
-        <div id="cloud">
-
-        </div>
+        <p id="no-film" class="hide">No film here</p>
+        <p id="wrong-film" class="hide">Please input a more specific title</p>
+        <div id="response-container"></div>
+        <div id="guardian-articles"></div>
+        <div id="cloud"></div>
+        <script src="jasmine-tests/src/functions.js"></script>
         <script src="src/omdb.js" charset="utf-8"></script>
         <script src="src/guardian.js" charset="utf-8"></script>
         <script src="src/main.js" charset="utf-8"></script>
