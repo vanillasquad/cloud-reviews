@@ -4,7 +4,7 @@ var commonWords = ['a','i','it','as','an','m','on','to','the','of','if','by','in
 'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because'];
 var fontSizeMax = 58;
 
-function getResponseHandler(xhr) {
+function guardianResponseHandler(xhr) {
     return function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             response = JSON.parse(xhr.responseText).response;
@@ -23,7 +23,7 @@ function getResponseHandler(xhr) {
 function sendGuardianRequest(filmInput, apiKey) {
     var guardianRequest = new XMLHttpRequest();
 
-    guardianRequest.onreadystatechange = getResponseHandler(guardianRequest);
+    guardianRequest.onreadystatechange = guardianResponseHandler(guardianRequest);
 
     var searchTerm = encodeURIComponent(filmInput);
     var url = 'http://content.guardianapis.com/search?section=film&show-fields=body&q='+searchTerm+'&api-key='+apiKey;

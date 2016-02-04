@@ -12,26 +12,38 @@ function sendOmdbRequest(filmInput) {
 
 
 function omdbResponseHandler(xhr) {
-    if( xhr.readyState === 4 && xhr.status === 200 ){
-        response = JSON.parse(xhr.responseText);
-        omdbResponseHandler(response);
-        return response;
-    }
-};
+    return function() {
+        if( xhr.readyState === 4 && xhr.status === 200 ){
+            response = JSON.parse(xhr.responseText);
+            omdbResponseHandler(response);
+            noFilmCheck(response);
+        }
+    };
+}
 
-var omdbResponseHandler = function(responseObject) {
+function noFilmCheck(responseObject) {
     //if no such film or game exists
     if (responseObject.Response === 'False') {
         checkInput = 'No film here';
     } else if (responseObject.Type !== 'movie') {
         //if something exists but its not a movie
         checkInput = 'Please input a more specific title';
+    } else {
+        domBuilder(responseObject);
     }
     var pElement = document.createElement('p');
     pElement.innerHTML = checkInput;
     document.getElementById('response-container').appendChild(pElement);
-};
+}
 
-domBuilder = function(responseObject) {
-
-};
+function domBuilder(responseObject) {
+    var poster = document.createElement('img');
+    poster.src = responseObject.Poster;
+    document.getElementById('response-container').appendChild(poster);
+    var rating = document.createElement('P');
+    rating.innerHTML = responseObject.imdbRating;
+    document.getElementById('response-container').appendChild(rating);
+    var plot = document.createElement('P');
+    plot.innerHTML = responseObject.Plot;
+    document.getElementById('response-container').appendChild(plot);
+}

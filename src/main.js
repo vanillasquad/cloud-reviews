@@ -11,9 +11,3 @@ form.addEventListener('submit', function(e) {
 
     document.getElementById('film-search').reset();
 });
-
-function sendOmdbRequest(filmInput) {
-    var uri = 'http://www.omdbapi.com/?t=' + filmInput.replace(/ /g, '+') + '&y=&plot=short&r=json';
-    omdbResponse.open('GET', uri, true);
-    omdbResponse.send();
-}
