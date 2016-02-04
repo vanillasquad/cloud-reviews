@@ -18,6 +18,8 @@ var omdbResponseHandler = function(responseObject) {
     } else if (responseObject.Type !== 'movie') {
         //if something exists but its not a movie
         checkInput = 'Please input a more specific title';
+    } else {
+        domBuilder(responseObject);
     }
     var pElement = document.createElement('p');
     pElement.innerHTML = checkInput;
@@ -25,13 +27,20 @@ var omdbResponseHandler = function(responseObject) {
 };
 
 domBuilder = function(responseObject) {
-
+    var poster = document.createElement('img');
+    poster.src = responseObject.Poster;
+    document.getElementById('response-container').appendChild(poster);
+    var rating = document.createElement('P');
+    rating.innerHTML = responseObject.imdbRating;
+    document.getElementById('response-container').appendChild(rating);
+    var plot = document.createElement('P');
+    plot.innerHTML = responseObject.Plot;
+    document.getElementById('response-container').appendChild(plot);
 };
 
 document.getElementById('submit-btn').addEventListener('click', function(e) {
     e.preventDefault();
     var filmInput = document.getElementById('film-input').value.replace(/ /g, '+');
-    console.log(filmInput);
     var uri = 'http://www.omdbapi.com/?t=' + filmInput + '&y=&plot=short&r=json';
     omdbResponse.open('GET', uri, true);
     omdbResponse.send();
