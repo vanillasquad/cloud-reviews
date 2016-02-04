@@ -1,5 +1,4 @@
 var response;
-var checkInput = '';
 
 function sendOmdbRequest(filmInput) {
     var omdbResponse = new XMLHttpRequest();
@@ -23,6 +22,7 @@ function omdbResponseHandler(xhr) {
 
 function noFilmCheck(responseObject) {
     //if no such film or game exists
+    var checkInput;
     if (responseObject.Response === 'False') {
         checkInput = 'No film here';
     } else if (responseObject.Type !== 'movie') {
@@ -30,6 +30,7 @@ function noFilmCheck(responseObject) {
         checkInput = 'Please input a more specific title';
     } else {
         domBuilder(responseObject);
+        checkInput = '';
     }
     var pElement = document.createElement('p');
     pElement.innerHTML = checkInput;
