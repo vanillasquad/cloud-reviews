@@ -28,11 +28,11 @@ domBuilder = function(responseObject) {
 
 };
 
-document.getElementById('submit-btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    var filmInput = document.getElementById('film-input').value.replace(/ /g, '+');
-    console.log(filmInput);
-    var uri = 'http://www.omdbapi.com/?t=' + filmInput + '&y=&plot=short&r=json';
-    omdbResponse.open('GET', uri, true);
-    omdbResponse.send();
-});
+// document.getElementById('submit-btn').addEventListener('click', function(e) {
+//     e.preventDefault();
+//     var filmInput = document.getElementById('film-input').value.replace(/ /g, '+');
+//     console.log(filmInput);
+//     var uri = 'http://www.omdbapi.com/?t=' + filmInput + '&y=&plot=short&r=json';
+//     omdbResponse.open('GET', uri, true);
+//     omdbResponse.send();
+// });
