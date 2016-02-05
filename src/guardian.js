@@ -2,7 +2,7 @@ var commonWords = ['the','and','with','has','had','his','hers','its','is','this'
 'just','who','where','while','when','why','well','have','been','not','out','from','but','for','you',
 'will','was','their','than','which','were','one','are','all','she','them','say','says','them','how',
 'because','other','see','can','no','us','may','could','theres','film','him','her','lot','hes',
-'shes','only','these'];
+'shes','only','these','film'];
 var fontSizeMax = 58;
 
 function guardianResponseHandler(xhr) {
