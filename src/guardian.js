@@ -15,7 +15,6 @@ function guardianResponseHandler(xhr) {
                 text += article.fields.body;
             });
 
-            processResponse(response);
             getWordCloud(text);
         }
     };
@@ -30,24 +29,6 @@ function sendGuardianRequest(filmInput, apiKey) {
     var url = 'http://content.guardianapis.com/search?section=film&show-fields=body&q='+searchTerm+'&api-key='+apiKey;
     guardianRequest.open('GET', url, true);
     guardianRequest.send();
-}
-
-function processResponse(response) {
-    var targetElement = document.getElementById('guardian-articles');
-
-    var list = document.createElement('ul');
-    targetElement.appendChild(list);
-
-    response.results.forEach(function(article) {
-        var listItem = document.createElement('li');
-        var contentElement = document.createElement('a');
-
-        contentElement.href = article.webUrl;
-        contentElement.innerHTML = article.webTitle;
-
-        listItem.appendChild(contentElement);
-        list.appendChild(listItem);
-    });
 }
 
 function getWordCloud(corpus) {
