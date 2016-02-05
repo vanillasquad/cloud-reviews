@@ -1,11 +1,11 @@
-# #TwitterReviews  
-Application to search for movies and find rating, plot, and reviews from tweets.
+# CloudReviews
+Application to search for movies and find rating, plot, and reviews and articles from the Guardian.
 
-### Core Features  
+### Core Features
 * Search for film
 * Get rating and plot from IMDB
-* Get several tweets mentioning the film
+* Get latest related articles from the Guardian
 
-### Stretch Features  
-* Tweets overlaid on movie stills
+### Stretch Features
+* Word Cloud!
 * Map showing cinemas nearby showing the film
