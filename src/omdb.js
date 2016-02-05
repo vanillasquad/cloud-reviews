@@ -11,7 +11,6 @@ function omdbResponseHandler(xhr) {
     return function() {
         if( xhr.readyState === 4 && xhr.status === 200 ){
             var response = JSON.parse(xhr.responseText);
-            omdbResponseHandler(response);
             noFilmCheck(response);
         }
     };
@@ -38,7 +37,7 @@ function noFilmCheck(responseObject) {
 function domBuilder(responseObject) {
 	console.log(responseObject);
 	var summaryContainer = document.createElement('div');
-	summaryContainer.className = 'summary-container'
+	summaryContainer.className = 'summary-container';
 
     var title = document.createElement('P');
     title.innerHTML = responseObject.Title;
