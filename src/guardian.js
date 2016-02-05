@@ -1,7 +1,8 @@
-var commonWords = ['a','i','it','as','an','m','on','to','the','of','if','by','in','and','with','at',
-'has','had','his','her','its','is','this','that','also','just','who','where','while','when','why',
-'well','have','been','not','out','from','but','for','you','will','was','their','than','which','were',
-'one','up','are','all','be','so','she','he','them','we','say','says','them','how','because'];
+var commonWords = ['the','and','with','has','had','his','hers','its','is','this','that','also',
+'just','who','where','while','when','why','well','have','been','not','out','from','but','for','you',
+'will','was','their','than','which','were','one','are','all','she','them','say','says','them','how',
+'because','other','see','can','no','us','may','could','theres','film','him','her','lot','hes',
+'shes','only','these'];
 var fontSizeMax = 58;
 
 function guardianResponseHandler(xhr) {
@@ -67,7 +68,7 @@ function preProcessArticleBody(body) {
                 .toLowerCase()
                 .split(' ')
                 .filter(function(word) { // remove common words
-                   return commonWords.indexOf(word) == -1;
+                   return commonWords.indexOf(word) == -1 && word.length > 2;
                 });
 }
 
