@@ -102,6 +102,8 @@ function arrangeCloud(wordSize) {
         var wordElement = document.createElement('p');
         wordElement.innerHTML = word;
         wordElement.style.fontSize = wordSize[word].toString() + 'px';
+		wordElement.style.left = (Math.random() * 500) + 1 + 'px';
+		wordElement.style.top = (Math.random() * 700) + 1 + 'px';
         wordElement.classList.add('word-cloud');
         if (wordSize[word] <= fontSizeMax/3) {
             wordElement.classList.add('light');

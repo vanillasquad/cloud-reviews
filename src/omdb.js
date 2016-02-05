@@ -21,7 +21,7 @@ function noFilmCheck(responseObject) {
     //if no such film or game exists
     var checkInput;
     if (responseObject.Response === 'False') {
-        checkInput = 'No film here';
+        checkInput = 'Try a different film';
     } else if (responseObject.Type !== 'movie') {
         //if something exists but its not a movie
         checkInput = 'Please input a more specific title';
@@ -30,18 +30,39 @@ function noFilmCheck(responseObject) {
         checkInput = '';
     }
     var pElement = document.createElement('p');
+	pElement.className = 'error';
     pElement.innerHTML = checkInput;
     document.getElementById('response-container').appendChild(pElement);
 }
 
 function domBuilder(responseObject) {
-    var poster = document.createElement('img');
-    poster.src = responseObject.Poster;
-    document.getElementById('response-container').appendChild(poster);
+	console.log(responseObject);
+	var summaryContainer = document.createElement('div');
+	summaryContainer.className = 'summary-container'
+
+    var title = document.createElement('P');
+    title.innerHTML = responseObject.Title;
+    title.className = 'title';
+    summaryContainer.appendChild(title);
+
     var rating = document.createElement('P');
+    rating.className = 'rating';
     rating.innerHTML = responseObject.imdbRating;
-    document.getElementById('response-container').appendChild(rating);
+    summaryContainer.appendChild(rating);
+
     var plot = document.createElement('P');
+    plot.className = 'plot';
     plot.innerHTML = responseObject.Plot;
-    document.getElementById('response-container').appendChild(plot);
+    summaryContainer.appendChild(plot);
+
+	// var poster = document.createElement('img');
+	// poster.src = responseObject.Poster;
+	// poster.className = 'poster';
+
+	var responseContainer = document.getElementById('response-container')
+	responseContainer.style.background = 'url(' + responseObject.Poster + ')';
+	responseContainer.style.backgroundSize = 'cover';
+	responseContainer.style.backgroundPosition = '50%';
+	responseContainer.appendChild(summaryContainer);
+	// responseContainer.appendChild(poster);
 }
