@@ -7,7 +7,7 @@ var fontSizeMax = 58;
 
 function guardianResponseHandler(xhr) {
     return function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+        if (xhr.status >= 200 && this.status < 300) {
             response = JSON.parse(xhr.responseText).response;
 
             var text = '';
@@ -23,7 +23,7 @@ function guardianResponseHandler(xhr) {
 function sendGuardianRequest(filmInput, apiKey) {
     var guardianRequest = new XMLHttpRequest();
 
-    guardianRequest.onreadystatechange = guardianResponseHandler(guardianRequest);
+    guardianRequest.addEventListener('load', guardianResponseHandler(guardianRequest));
 
     var searchTerm = encodeURIComponent(filmInput);
     var url = 'http://content.guardianapis.com/search?section=film&show-fields=body&q='+searchTerm+'&api-key='+apiKey;

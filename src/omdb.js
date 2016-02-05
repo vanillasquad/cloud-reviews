@@ -1,7 +1,8 @@
 function sendOmdbRequest(filmInput) {
     var omdbResponse = new XMLHttpRequest();
 
-    omdbResponse.onreadystatechange = omdbResponseHandler(omdbResponse);
+    omdbResponse.addEventListener('load', omdbResponseHandler(omdbResponse));
+
     var uri = 'http://www.omdbapi.com/?t=' + filmInput.replace(/ /g, '+') + '&y=&plot=short&r=json';
     omdbResponse.open('GET', uri, true);
     omdbResponse.send();
@@ -9,7 +10,7 @@ function sendOmdbRequest(filmInput) {
 
 function omdbResponseHandler(xhr) {
     return function() {
-        if( xhr.readyState === 4 && xhr.status === 200 ){
+        if(xhr.status >= 200 && xhr.status < 300){
             var response = JSON.parse(xhr.responseText);
             noFilmCheck(response);
         }
@@ -54,14 +55,9 @@ function domBuilder(responseObject) {
     plot.innerHTML = responseObject.Plot;
     summaryContainer.appendChild(plot);
 
-	// var poster = document.createElement('img');
-	// poster.src = responseObject.Poster;
-	// poster.className = 'poster';
-
-	var responseContainer = document.getElementById('response-container')
+	var responseContainer = document.getElementById('response-container');
 	responseContainer.style.background = 'url(' + responseObject.Poster + ')';
 	responseContainer.style.backgroundSize = 'cover';
 	responseContainer.style.backgroundPosition = '50%';
 	responseContainer.appendChild(summaryContainer);
-	// responseContainer.appendChild(poster);
 }
